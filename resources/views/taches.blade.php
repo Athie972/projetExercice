@@ -9,7 +9,15 @@
 <body>
     <h1>My List</h1>
 
-    {{$tasks}};
+
+   <ul>
+    @foreach ($tasks as $task)
+    <li>{{$task->title}}: {{$task->description}}</li>
+        
+    @endforeach
+   </ul>
+
+
 
 </body>
 </html>
