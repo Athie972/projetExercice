@@ -12,12 +12,12 @@
 
    <ul>
     @foreach ($tasks as $task)
-    <li>{{$task->title}}: {{$task->description}}</li>
+    <li>{{$task->title}}: {{$task->description}} 
+        <a href="">X</a>
+    </li>
         
     @endforeach
    </ul>
-
-
 
 </body>
 </html>
