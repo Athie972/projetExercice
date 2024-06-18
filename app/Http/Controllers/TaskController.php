@@ -26,6 +26,8 @@ class TaskController extends Controller
      */
     public function create()
     {
+        // $task= Task::all();
+        // return view('tasks');
        
     }
 
@@ -36,13 +38,15 @@ class TaskController extends Controller
     {
         // valider les données
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'title' => 'required|string|min:8',
+            'description' => 'required|string|min:12',
+            'status' => 'boolean',
         ]);
+        // dd($request, $validatedData);
         // créer une tache
-        Task::create($validatedData);
+        Task::create($request->all());
         // redirection vers la page
-        return redirect()->route('tasks.index');
+        return redirect()->route('index.task');
     }
 
     /**
@@ -58,25 +62,27 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        $tasks = Task::findOrFail($id);
-        $tasks->update(['']);
-        return view('tasks.edit', compact('task'));
+        $task = Task::findOrFail($id);
+        // var_dump($task);
+            return  view('tasks.edit', compact('task'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
+    { 
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
+            'status'=> 'false',
         ]);
 
+        // dd($validatedData);
         $task = Task::findOrFail($id);
-        $task->update($validatedData);
+         $task->update($validatedData);
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('index.task');
     }
 
     /**
@@ -86,7 +92,7 @@ class TaskController extends Controller
     {
         $tasks = Task::find($id);
         $tasks->delete();
-        return redirect()->route('tasks.index');
+        return redirect()->route('index.task');
         
     }
 }

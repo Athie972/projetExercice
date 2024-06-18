@@ -9,7 +9,7 @@
 <body>
     <h1>My List</h1>
     <h2>Ajouter une Tâche</h2>
-    <form action="{{ route('tasks.store') }}" method="POST">
+    <form action="{{ route('store.task') }}" method="POST">
         @csrf
         <div>
             <label for="title">Titre</label>
@@ -19,18 +19,20 @@
             <label for="description">Description</label>
             <input type="text" name="description" id="description" required>
         </div>
+        <input type="hidden" name="status" value='0'>
         <button type="submit">Ajouter</button>
     </form>
 
    <ul>
     @foreach ($tasks as $task)
     <li>{{$task->title}}: {{$task->description}} 
+        
+        <a href="{{route('edit.task',['id'=> $task->id])}}">Edit
+        </a>
         <form action="{{ route('destroy.task', ['id' => $task->id]) }}" method="POST">
             @csrf
             <button type="submit">Delete</button>
         </form>
-        <a href="{{route('edit.task',['id'=> $task->id])}}">Edit
-        </a>
     </li>
         
     @endforeach
