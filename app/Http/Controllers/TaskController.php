@@ -24,10 +24,9 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function delete()
+    public function create()
     {
-        $tasks = Task::all();
-        return view ('taches', );
+       
     }
 
     /**
@@ -35,7 +34,15 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // valider les données
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
+        // créer une tache
+        Task::create($validatedData);
+        // redirection vers la page
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -51,7 +58,9 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tasks = Task::findOrFail($id);
+        $tasks->update(['']);
+        return view('tasks.edit', compact('task'));
     }
 
     /**
@@ -59,14 +68,25 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
+
+        $task = Task::findOrFail($id);
+        $task->update($validatedData);
+
+        return redirect()->route('tasks.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $tasks = Task::find($id);
+        $tasks->delete();
+        return redirect()->route('tasks.index');
+        
     }
 }
