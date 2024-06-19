@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="stylesheet" href="{{asset('css/list.css')}}">
     <title>List</title>
 </head>
 <body>
+    <div class="container">
     <h1>My List</h1>
     <h2>Ajouter une Tâche</h2>
     <form action="{{ route('store.task') }}" method="POST">
@@ -20,23 +23,30 @@
             <input type="text" name="description" id="description" required>
         </div>
         <input type="hidden" name="status" value='0'>
-        <button type="submit">Ajouter</button>
+        <button type="submit" class="btn-add">Ajouter</button>
     </form>
 
+
+<div class="list">
    <ul>
+    <div class="tache">
     @foreach ($tasks as $task)
     <li>{{$task->title}}: {{$task->description}} 
         
-        <a href="{{route('edit.task',['id'=> $task->id])}}">Edit
-        </a>
+        <form action="{{route('edit.task',['id'=> $task->id])}}" method="GET">
+            @csrf
+            <button type="submit" class="btn-edit">Edit</button>
+        </form>
         <form action="{{ route('destroy.task', ['id' => $task->id]) }}" method="POST">
             @csrf
-            <button type="submit">Delete</button>
+            <button type="submit" class="btn-delete">Delete</button>
         </form>
     </li>
         
     @endforeach
+</div>
    </ul>
-
+</div>
+</div>
 </body>
 </html>

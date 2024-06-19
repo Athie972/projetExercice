@@ -1,0 +1,43 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    width: 800px;
+    height: 500px;
+    background-color: rgb(173, 139, 206);
+    text-align: center;
+}
+
+input{
+    border: 0;
+    border-bottom: 2px solid #070368;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #070368;
+    padding: 7px 0;
+    background: transparent;
+}
+
+.list{
+    background-color: rgb(69, 0, 139);
+    color: #fff;
+    text-align: left;
+    
+}
+
+.tache{
+    padding: 10px;
+    margin-top: 5px ;
+    margin-bottom: 30px;
+}
+.btn-add{
+    ;
+}
+
+.btn-edit{}
+
+.btn-delete{
+    
+}
